@@ -20,24 +20,25 @@ loadData = async (onSuccessCallback, onErrorCallback) => {
     if (onSuccessCallback) onSuccessCallback(data);
   } catch (error) {
     if (onErrorCallback) onErrorCallback(error);
-    // if(!response.ok){
-    // 	throw new Error(`Error status ${response.status}`)};
   }
 };
 const onSuccessCallback = (data) => {
   data.results.forEach((el) => initialAppState.recipesList.push(el));
   const recipesData = initialAppState.recipesList;
+  console.log(recipesData);
 
   for (const recipe of recipesData) {
-    const { name, thumbnail_url } = recipe;
+    const { name, thumbnail_url, id } = recipe;
 
     const createRecipeDiv = (name, thumbnail_url) => {
       const recipeDiv = document.createElement("div");
       recipeDiv.className = "recipeDiv";
 
-      const recipeName = document.createElement("h4");
+      const recipeName = document.createElement("button");
       recipeName.innerText = name;
       recipeName.className = "recipeName";
+      recipeName.onclick = () => {getRecipeDetails(id)};
+    
 
       const recipeImage = document.createElement("img");
       recipeImage.src = thumbnail_url;
@@ -56,6 +57,25 @@ const onSuccessCallback = (data) => {
 };
 
 
+// const getRecipeDetails =  (id) => {
+//   console.log(id);
+// }
+const getRecipeDetails = async (id) => {
+  try {
+    const response = await fetch(`https://tasty.p.rapidapi.com/recipes/get-more-info?id=${id}`, options);
+    const data = await response.json()
+    console.log(data)
+    
+  } catch (error) {
+    console.log(error)
+    
+  }
+}
+
+
+
 const onErrorCallback = (error) => console.log(error);
 
-console.log(loadData(onSuccessCallback, onErrorCallback));
+loadData(onSuccessCallback, onErrorCallback);
+
+
