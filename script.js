@@ -85,14 +85,14 @@ const showInstructions = (data) => {
   const title = document.createElement("h3");
   title.innerHTML = data.name;
 
-  const instructions = document.createElement("div");
+  const instructions = document.createElement("h4");
   instructions.innerText = "Instructions:";
 
   instructionsDiv.append(title, instructions);
 
   for (const instructions of data.instructions) {
     const { position, display_text } = instructions;
-    const instructionsStep = document.createElement("div");
+    const instructionsStep = document.createElement("p");
     instructionsStep.innerHTML = `${position}. ${display_text}`;
     instructionsDiv.append(instructionsStep);
   }
