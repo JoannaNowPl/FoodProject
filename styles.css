@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400;family=Courgette&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@400&family=Courgette&display=swap');
 
 * {
     padding: 0;
@@ -30,14 +30,14 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
  }
 
  .recipeDiv{
   display: flex;
   flex-direction: column;
   width: 400px;
-  height: 350px;
+  height: auto;
   margin: 10px;
   justify-content: flex-start;
   align-items: center;
@@ -69,6 +69,7 @@
 div.tagsDiv{
   text-align: center;
   padding: 5px;
+  font-size: 14px;
 }
 
 div.instructionsDiv{
@@ -78,15 +79,18 @@ justify-content: center;
 }
 
 div.instructions{
-  background-image: url(./images/cardM.jpg);
+  background-image: url(./images/plainCardM.jpg);
   background-size: cover;
-  background-position: center;
-  width: 600px;
-  height: 400px;
-  padding-left: 150px;
-  padding-top: 100px;
+  background-position:center;
+  width: 90vw;
+  height: auto;
+  padding:20px;
   margin: 20px;
   border-radius: 10px;
+}
+
+div.instructions h4 {
+  padding-top: 15px;
 }
 
 footer {
