@@ -8,14 +8,22 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header>30 tasty dishes which you could cook within 30 minutes</header>
+    <header id="top">
+      30 tasty dishes which you could cook within 30 minutes
+    </header>
+    <nav>
+      <a href="#top">
+        <button id="topButton" title="Go to top"><p>&#171;</p></button>
+      </a>
+      <a href="#bottom">
+        <button id="bottomButton" title="Go to bottom"><p>&#187;</p></button>
+      </a>
+    </nav>
     <main>
-      <div class="recipes-list">       
-      </div>
-      <div class="instructionsDiv">
-      </div>
+      <div class="recipes-list"></div>
+      <div class="instructionsDiv" id="details"></div>
     </main>
-    <footer>© 2022 Page created only as a practice project</footer>
+    <footer id="bottom">© 2022 Page created only as a practice project</footer>
 
     <script src="./script.js"></script>
   </body>

@@ -27,7 +27,7 @@ const onSuccessCallback = (data) => {
   const recipesData = initialAppState.recipesList;
 
   for (const recipe of recipesData) {
-    const { name, thumbnail_url, id, tags} = recipe;
+    const { name, thumbnail_url, id, tags } = recipe;
 
     const createRecipeDiv = (name, thumbnail_url) => {
       const recipeDiv = document.createElement("div");
@@ -39,20 +39,22 @@ const onSuccessCallback = (data) => {
       recipeName.onclick = () => {
         getRecipeDetails(id);
       };
-     
-      const tagsTable=[];
-      for(const el of tags){tagsTable.push(el.display_name)};
-    
+
+      const tagsTable = [];
+      for (const el of tags) {
+        tagsTable.push(el.display_name);
+      }
+
       const tagsDiv = document.createElement("div");
-      tagsDiv.className="tagsDiv";
-      tagsDiv.innerHTML=`#${tagsTable.join(" #")}`;
+      tagsDiv.className = "tagsDiv";
+      tagsDiv.innerHTML = `#${tagsTable.join(" #")}`;
 
       const recipeImage = document.createElement("img");
       recipeImage.src = thumbnail_url;
       recipeImage.className = "recipeImage";
 
       recipeDiv.append(recipeName, recipeImage, tagsDiv);
-      
+
       return recipeDiv;
     };
 
@@ -70,6 +72,7 @@ const getRecipeDetails = async (id) => {
     );
     const data = await response.json();
     showInstructions(data);
+    location.href = "#details";
   } catch (error) {
     console.log(error);
   }
@@ -90,17 +93,21 @@ const showInstructions = (data) => {
   const title = document.createElement("h3");
   title.innerHTML = data.name;
 
-  const ingredientsHeader = document.createElement("h4");
-  ingredientsHeader.innerHTML = "Ingredients:"; 
+  const recipeImage=document.createElement("img");
+  recipeImage.src = data.thumbnail_url;
+  recipeImage.className = "recipeImage";
 
-  instructions.append(title, ingredientsHeader);
+
+  const ingredientsHeader = document.createElement("h4");
+  ingredientsHeader.innerHTML = "Ingredients:";
+
+  instructions.append(title, recipeImage, ingredientsHeader);
 
   const componentsTable = data.sections[0].components;
-  
 
   for (const element of componentsTable) {
-    const {raw_text} = element;
-    
+    const { raw_text } = element;
+
     const ingredient = document.createElement("p");
     ingredient.innerHTML = `${raw_text}`;
     instructions.append(ingredient);
@@ -122,10 +129,10 @@ const showInstructions = (data) => {
   nutritionHeader.innerHTML = "Nutrition:";
   instructions.append(nutritionHeader);
 
-  for (const nutriKey in data.nutrition){     
-     if(nutriKey==="updated_at") continue;   
-    const nutriP = document.createElement("p");      
-    nutriP.innerHTML=`${nutriKey}: ${data.nutrition[nutriKey]}`;    
+  for (const nutriKey in data.nutrition) {
+    const nutriP = document.createElement("p"); 
+    if (nutriKey === "updated_at") {continue};    
+    nutriP.innerHTML = `${nutriKey}: ${data.nutrition[nutriKey]}`;
     instructions.append(nutriP);
-    };
+  }
 };
