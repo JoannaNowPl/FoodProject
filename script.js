@@ -90,6 +90,13 @@ const showInstructions = (data) => {
 
   instructionsDiv.append(instructions);
 
+  const closeButton = document.createElement("button");
+  closeButton.className="closeButton";
+  closeButton.innerHTML="&times";
+  closeButton.onclick=function() {
+    this.parentNode.remove() 
+    return false}
+
   const title = document.createElement("h3");
   title.innerHTML = data.name;
 
@@ -101,7 +108,7 @@ const showInstructions = (data) => {
   const ingredientsHeader = document.createElement("h4");
   ingredientsHeader.innerHTML = "Ingredients:";
 
-  instructions.append(title, recipeImage, ingredientsHeader);
+  instructions.append(closeButton, title, recipeImage, ingredientsHeader);
 
   const componentsTable = data.sections[0].components;
 
