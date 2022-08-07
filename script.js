@@ -91,19 +91,19 @@ const showInstructions = (data) => {
   instructionsDiv.append(instructions);
 
   const closeButton = document.createElement("button");
-  closeButton.className="closeButton";
-  closeButton.innerHTML="&times";
-  closeButton.onclick=function() {
-    this.parentNode.remove() 
-    return false}
+  closeButton.className = "closeButton";
+  closeButton.innerHTML = "&times";
+  closeButton.onclick = function () {
+    this.parentNode.remove();
+    return false;
+  };
 
   const title = document.createElement("h3");
   title.innerHTML = data.name;
 
-  const recipeImage=document.createElement("img");
+  const recipeImage = document.createElement("img");
   recipeImage.src = data.thumbnail_url;
   recipeImage.className = "recipeImage";
-
 
   const ingredientsHeader = document.createElement("h4");
   ingredientsHeader.innerHTML = "Ingredients:";
@@ -137,8 +137,10 @@ const showInstructions = (data) => {
   instructions.append(nutritionHeader);
 
   for (const nutriKey in data.nutrition) {
-    const nutriP = document.createElement("p"); 
-    if (nutriKey === "updated_at") {continue};    
+    const nutriP = document.createElement("p");
+    if (nutriKey === "updated_at") {
+      continue;
+    }
     nutriP.innerHTML = `${nutriKey}: ${data.nutrition[nutriKey]}`;
     instructions.append(nutriP);
   }
