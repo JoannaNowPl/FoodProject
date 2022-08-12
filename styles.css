@@ -7,13 +7,43 @@
   font-family: "Mukta", sans-serif;
 }
 
+#loader {
+  border: 12px solid rgb(150, 35, 80);
+  border-radius: 50%;
+  border-top: 12px solid #444444;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+  visibility: visible;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.center {
+  position: absolute;
+  top: 50vh;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
 body {
   background-image: url("./images/plateS.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  position: relative;
+  visibility: hidden;
 }
 
+main {
+  height: 100%;
+}
 /* header */
 
 header {
@@ -61,7 +91,8 @@ h1 {
   justify-content: center;
   align-items: flex-start;
   width: 90vw;
-  margin: 5vw 5vw;
+  margin: 5vw;
+  height: auto;
 }
 
 .recipeDiv {
@@ -177,7 +208,7 @@ footer {
   );
   text-align: center;
   height: auto;
-  bottom: 0px;
+  width: 100vw;
   padding: 10px;
 }
 
@@ -242,7 +273,7 @@ footer {
 
   .recipes-list {
     width: 85vw;
-    margin: 5vw 7.5vw;
+    margin: 3vw 7.5vw;
   }
 
   .recipeDiv,

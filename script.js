@@ -1,3 +1,8 @@
+const loading = setTimeout(function () {
+  document.querySelector("body").style.visibility = "visible";
+  document.querySelector("#loader").style.visibility = "hidden";
+}, 2000);
+
 const options = {
   method: "GET",
   headers: {
@@ -22,6 +27,7 @@ loadData = async (onSuccessCallback, onErrorCallback) => {
     if (onErrorCallback) onErrorCallback(error);
   }
 };
+
 const onSuccessCallback = (data) => {
   data.results.forEach((el) => initialAppState.recipesList.push(el));
   const recipesData = initialAppState.recipesList;
@@ -64,6 +70,10 @@ const onSuccessCallback = (data) => {
   }
 };
 
+const onErrorCallback = (error) => console.log(error);
+
+loadData(onSuccessCallback, onErrorCallback);
+
 const getRecipeDetails = async (id) => {
   try {
     const response = await fetch(
@@ -77,10 +87,6 @@ const getRecipeDetails = async (id) => {
     console.log(error);
   }
 };
-
-const onErrorCallback = (error) => console.log(error);
-
-loadData(onSuccessCallback, onErrorCallback);
 
 const showInstructions = (data) => {
   const instructionsDiv = document.querySelector(".instructionsDiv");
