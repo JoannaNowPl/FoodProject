@@ -1,7 +1,18 @@
-const loading = setTimeout(function () {
-  document.querySelector("body").style.visibility = "visible";
-  document.querySelector("#loader").style.visibility = "hidden";
-}, 2000);
+const initialAppState = {
+  recipesList: [],
+  isLoading: false,
+};
+
+const loadingSpinner = () => {
+  if (initialAppState.isLoading) {
+    document.querySelector("#loader").style.visibility = "visible";
+  } else {
+    setTimeout(() => {
+      document.querySelector("#loader").style.visibility = "hidden";
+      document.querySelector("body").style.visibility = "visible";
+    }, 500);
+  }
+};
 
 const options = {
   method: "GET",
@@ -11,12 +22,10 @@ const options = {
   },
 };
 
-const initialAppState = {
-  recipesList: [],
-};
-
 loadData = async (onSuccessCallback, onErrorCallback) => {
   try {
+    initialAppState.isLoading = true;
+    loadingSpinner();
     const response = await fetch(
       "https://tasty.p.rapidapi.com/recipes/list?from=0&size=30&tags=under_30_minutes",
       options
@@ -25,8 +34,19 @@ loadData = async (onSuccessCallback, onErrorCallback) => {
     if (onSuccessCallback) onSuccessCallback(data);
   } catch (error) {
     if (onErrorCallback) onErrorCallback(error);
+  } finally {
+    initialAppState.isLoading = false;
+    loadingSpinner();
   }
 };
+
+const createImage = (thumbnail_url, recipeName) => {
+  const recipeImage = document.createElement("img");
+  recipeImage.src = thumbnail_url;
+  recipeImage.className = "recipeImage"
+  recipeImage.alt = `Image of ${recipeName}`;
+  return recipeImage;
+}
 
 const onSuccessCallback = (data) => {
   data.results.forEach((el) => initialAppState.recipesList.push(el));
@@ -46,6 +66,8 @@ const onSuccessCallback = (data) => {
         getRecipeDetails(id);
       };
 
+      const recipeImage = createImage(thumbnail_url, name);    
+
       const tagsTable = [];
       for (const el of tags) {
         tagsTable.push(el.display_name);
@@ -54,10 +76,6 @@ const onSuccessCallback = (data) => {
       const tagsDiv = document.createElement("div");
       tagsDiv.className = "tagsDiv";
       tagsDiv.innerHTML = `#${tagsTable.join(" #")}`;
-
-      const recipeImage = document.createElement("img");
-      recipeImage.src = thumbnail_url;
-      recipeImage.className = "recipeImage";
 
       recipeDiv.append(recipeName, recipeImage, tagsDiv);
 
@@ -107,9 +125,7 @@ const showInstructions = (data) => {
   const title = document.createElement("h3");
   title.innerHTML = data.name;
 
-  const recipeImage = document.createElement("img");
-  recipeImage.src = data.thumbnail_url;
-  recipeImage.className = "recipeImage";
+  const recipeImage = createImage(data.thumbnail_url, data.name);    
 
   const ingredientsHeader = document.createElement("h4");
   ingredientsHeader.innerHTML = "Ingredients:";
