@@ -10,7 +10,7 @@ const loadingSpinner = () => {
     setTimeout(() => {
       document.querySelector("#loader").style.visibility = "hidden";
       document.querySelector("body").style.visibility = "visible";
-    }, 500);
+    }, 100);
   }
 };
 
@@ -22,7 +22,7 @@ const options = {
   },
 };
 
-loadData = async (onSuccessCallback, onErrorCallback) => {
+const loadData = async (onSuccessCallback, onErrorCallback) => {
   try {
     initialAppState.isLoading = true;
     loadingSpinner();
@@ -66,7 +66,7 @@ const onSuccessCallback = (data) => {
         getRecipeDetails(id);
       };
 
-      const recipeImage = createImage(thumbnail_url, name);    
+      const recipeImage = createImage(thumbnail_url, name);
 
       const tagsTable = [];
       for (const el of tags) {
@@ -91,6 +91,7 @@ const onSuccessCallback = (data) => {
 const onErrorCallback = (error) => console.log(error);
 
 loadData(onSuccessCallback, onErrorCallback);
+document.addEventListener("DOMContentLoaded", loadData(onSuccessCallback, onErrorCallback));
 
 const getRecipeDetails = async (id) => {
   try {
@@ -125,7 +126,7 @@ const showInstructions = (data) => {
   const title = document.createElement("h3");
   title.innerHTML = data.name;
 
-  const recipeImage = createImage(data.thumbnail_url, data.name);    
+  const recipeImage = createImage(data.thumbnail_url, data.name);
 
   const ingredientsHeader = document.createElement("h4");
   ingredientsHeader.innerHTML = "Ingredients:";

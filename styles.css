@@ -138,6 +138,7 @@ button.recipeName:hover {
   width: 200px;
   height: 120px;
   margin: 10px 0px;
+  object-fit: cover;
 }
 
 div.tagsDiv {
